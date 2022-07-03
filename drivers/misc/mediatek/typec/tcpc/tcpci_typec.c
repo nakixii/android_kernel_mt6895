@@ -2576,16 +2576,6 @@ static inline int typec_handle_vbus_absent(struct tcpc_device *tcpc)
 	return 0;
 }
 
-/*#ifdef OPLUS_FEATURE_CHG_BASIC*/
-static bool oplus_charge_enable = 0;
-bool oplus_tcpc_direct_charge_en( bool enable)
-{
-	oplus_charge_enable = enable;
-	return oplus_charge_enable;
-}
-EXPORT_SYMBOL(oplus_tcpc_direct_charge_en);
-/*#endif OPLUS_FEATURE_CHG_BASIC */
-
 int tcpc_typec_handle_ps_change(struct tcpc_device *tcpc, int vbus_level)
 {
 	tcpc->typec_reach_vsafe0v = false;
@@ -2620,13 +2610,6 @@ int tcpc_typec_handle_ps_change(struct tcpc_device *tcpc, int vbus_level)
 
 	if (vbus_level >= TCPC_VBUS_VALID)
 		return typec_handle_vbus_present(tcpc);
-
-	/*#ifdef OPLUS_FEATURE_CHG_BASIC*/
-	if(oplus_charge_enable) {
-		return typec_handle_vbus_present(tcpc);
-	}
-	pr_info("[%s]oplus_charge_enable=0x%x\n", __func__,oplus_charge_enable);
-	/*#endif OPLUS_FEATURE_CHG_BASIC */
 
 	return typec_handle_vbus_absent(tcpc);
 }
@@ -2736,33 +2719,6 @@ int tcpc_typec_swap_role(struct tcpc_device *tcpc)
 }
 #endif /* CONFIG_TYPEC_CAP_ROLE_SWAP */
 
-/*#ifdef OPLUS_FEATURE_CHG_BASIC*/
-/*int tcpc_typec_set_rp_level(struct tcpc_device *tcpc, uint8_t res)
-{
-	switch (res) {
-	case TYPEC_CC_RP_DFT:
-	case TYPEC_CC_RP_1_5:
-	case TYPEC_CC_RP_3_0:
-		TYPEC_INFO("TypeC-Rp: %d\n", res);
-		tcpc->typec_local_rp_level = res;
-		break;
-
-	default:
-		TYPEC_INFO("TypeC-Unknown-Rp (%d)\n", res);
-		return -EINVAL;
-	}
-
-#if CONFIG_USB_PD_DBG_ALWAYS_LOCAL_RP
-	tcpci_set_cc(tcpc, tcpc->typec_local_rp_level);
-#else
-	if ((tcpc->typec_attach_old != TYPEC_UNATTACHED) &&
-		(tcpc->typec_attach_new != TYPEC_UNATTACHED)) {
-		return tcpci_set_cc(tcpc, res);
-	}
-#endif
-
-	return 0;
-}*/
 int tcpc_typec_set_rp_level(struct tcpc_device *tcpc, uint8_t rp_lvl)
 {
 	switch (rp_lvl) {

@@ -934,19 +934,11 @@ static void set_tc_hw_reboot_threshold(struct lvts_data *lvts_data,
 
 static void set_all_tc_hw_reboot(struct lvts_data *lvts_data)
 {
-	struct device *dev = lvts_data->dev;
 	struct tc_settings *tc = lvts_data->tc;
-	int i, trip_point;
+	int i;
+	int trip_point = 200000;
 
 	for (i = 0; i < lvts_data->num_tc; i++) {
-		/* if high temp aging version, force trip temp = 200'C */
-		if (get_eng_version() != HIGH_TEMP_AGING) {
-			trip_point = tc[i].hw_reboot_trip_point;
-		} else {
-			trip_point = 200000;
-			dev_info(dev, "high temp aging version, force trip temp.\n");
-		}
-
 		if (tc[i].num_sensor == 0)
 			continue;
 

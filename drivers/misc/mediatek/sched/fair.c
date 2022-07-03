@@ -407,13 +407,6 @@ void mtk_find_energy_efficient_cpu(void *data, struct task_struct *p, int prev_c
 	else
 		latency_sensitive = p->uclamp_req[UCLAMP_MIN].value > 0 ? 1 : 0;
 
-/* TODO: remove these codes ASAP AUDIO_THREAD_OPTTIMIZE */
-#define AUDIO_THREAD_OPTTIMIZE
-#ifdef AUDIO_THREAD_OPTTIMIZE
-	if (!latency_sensitive && is_optimized_audio_thread(p))
-		latency_sensitive = true;
-#endif /* AUDIO_THREAD_OPTTIMIZE */
-
 	pd = rcu_dereference(rd->pd);
 	if (!pd || READ_ONCE(rd->overutilized)) {
 		select_reason = LB_FAIL;
@@ -654,12 +647,6 @@ static struct task_struct *detach_a_hint_task(struct rq *src_rq, int dst_cpu)
 			latency_sensitive = uclamp_latency_sensitive(p);
 		else
 			latency_sensitive = p->uclamp_req[UCLAMP_MIN].value > 0 ? 1 : 0;
-
-/* TODO: remove these codes ASAP AUDIO_THREAD_OPTTIMIZE */
-#ifdef AUDIO_THREAD_OPTTIMIZE
-		if (!latency_sensitive && is_optimized_audio_thread(p))
-			latency_sensitive = true;
-#endif /* AUDIO_THREAD_OPTTIMIZE */
 
 		if (latency_sensitive &&
 			task_util <= dst_capacity) {

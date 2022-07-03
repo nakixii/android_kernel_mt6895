@@ -27,15 +27,6 @@
  */
 #define EXT_SPK_AMP_W_NAME "Ext_Speaker_Amp"
 
-#ifndef OPLUS_ARCH_EXTENDS
-#define OPLUS_ARCH_EXTENDS
-#endif
-
-#ifdef OPLUS_ARCH_EXTENDS
-extern void extend_codec_i2s_be_dailinks(struct snd_soc_dai_link *dailink, size_t size);
-extern bool extend_codec_i2s_compare(struct snd_soc_dai_link *dailink, int dailink_num);
-#endif
-
 static const char *const mt6895_spk_type_str[] = {MTK_SPK_NOT_SMARTPA_STR,
 						  MTK_SPK_RICHTEK_RT5509_STR,
 						  MTK_SPK_MEDIATEK_MT6660_STR,
@@ -1422,9 +1413,6 @@ static int mt6895_mt6368_dev_probe(struct platform_device *pdev)
 		}
 #endif
 	}
-#ifdef OPLUS_ARCH_EXTENDS
-	extend_codec_i2s_be_dailinks(mt6895_mt6368_dai_links, ARRAY_SIZE(mt6895_mt6368_dai_links));
-#endif
 	card->dev = &pdev->dev;
 
 	ret = devm_snd_soc_register_card(&pdev->dev, card);

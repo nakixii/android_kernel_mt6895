@@ -191,7 +191,7 @@ static struct emi_cen *global_emi_cen;
  * Other drivers must be initialized before kernel's initcall stage.
  */
 #if !defined(MODULE)
-static int __init emicen_init_mpu_ap_region(void)
+static void __init emicen_init_mpu_ap_region(void)
 {
 	emimpu_ap_region_init();
 }

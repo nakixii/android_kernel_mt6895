@@ -29,7 +29,6 @@ config FS_MBCACHE
 	tristate
 	default y if EXT2_FS=y && EXT2_FS_XATTR
 	default y if EXT4_FS=y
-	default m if EXT2_FS_XATTR || EXT4_FS
 
 source "fs/reiserfs/Kconfig"
 source "fs/jfs/Kconfig"
@@ -346,10 +345,6 @@ endif # NETWORK_FILESYSTEMS
 source "fs/nls/Kconfig"
 source "fs/dlm/Kconfig"
 source "fs/unicode/Kconfig"
-
-#ifdef OPLUS_FEATURE_PERFORMANCE_FS
-source "fs/oplus_perf_fs/Kconfig"
-#endif /* OPLUS_FEATURE_PERFORMANCE_FS */
 
 config IO_WQ
 	bool

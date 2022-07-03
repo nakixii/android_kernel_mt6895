@@ -3593,7 +3593,6 @@ static int mtk_cam_seninf_irq_handler(int irq, void *data)
 				snprintf(seninf_name+cnt_tmp, 256-cnt_tmp,
 					"   size_err_count: %d",
 					ctx_->size_err_cnt);
-				seninf_aee_print("[AEE] %s", seninf_name);
 
 				// kill_pid(core->pid, SIGKILL, 1);
 			}
