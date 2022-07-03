@@ -136,6 +136,8 @@ static struct nl_rpmb_send_req nl_rpmb_req;
 #define RPMB_IOCTL_READ_DATA    4
 
 struct rpmb_ioc_param {
+	unsigned char *key;
+	unsigned char *data;
 	unsigned char *keybytes;
 	unsigned char *databytes;
 	unsigned int  data_len;

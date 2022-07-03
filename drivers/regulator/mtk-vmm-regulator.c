@@ -309,7 +309,7 @@ static int force_voltage(void *data, u64 val)
 	ISP_LOGI("Force votage(%d)", voltage);
 
 	if (!dbg_data->reg_enable) {
-		regulator_enable(dbg_data->reg);
+		(void)regulator_enable(dbg_data->reg);
 		dbg_data->reg_enable = true;
 	}
 
@@ -355,7 +355,7 @@ static int force_opp_level(void *data, u64 val)
 	opp_table = &(drv_data->opp_table);
 
 	if (!dbg_data->reg_enable) {
-		regulator_enable(dbg_data->reg);
+		(void)regulator_enable(dbg_data->reg);
 		dbg_data->reg_enable = true;
 	}
 

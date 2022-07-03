@@ -34,7 +34,6 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/eccci/hif/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/mdpm/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/pbm/
-ifeq ($(CCCI_OBJ), m)
 ccflags-y += -DCCCI_KMODULE_ENABLE
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/eccci/hif
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/eccci/udc/udc_lib_inc
@@ -149,31 +148,5 @@ obj-$(CCCI_OBJ) += ccci_dpmaif.o
 # ccci_cldma.ko
 ccci_cldma-y := hif/ccci_cldma_plat.o hif/ccci_hif_cldma.o
 obj-$(CCCI_OBJ) += ccci_cldma.o
-
-else
-
-obj-$(CCCI_OBJ) += ccci_all.o
-# common services
-ccci_all-$(CCCI_OBJ) := ccci_core.o ccci_bm.o ccci_modem.o ccci_rtc.o modem_sys1.o ccci_md_clk.o
-
-
-ifneq ($(CONFIG_MEDIATEK_MT6577_AUXADC), n)
-ccci_all-$(CCCI_OBJ) += ccci_auxadc.o
-endif
-
-ifeq ($(CONFIG_MTK_ECCCI_C2K), y)
-ccci_all-$(CCCI_OBJ) += modem_sys3.o
-endif
-
-# sub modules
-obj-$(CCCI_OBJ) += fsm/
-obj-$(CCCI_OBJ) += hif/
-obj-$(CCCI_OBJ) += port/
-obj-$(CCCI_OBJ) += udc/
-
-# platform code
-obj-$(CCCI_OBJ) += platform/
-
-endif
 
 endif

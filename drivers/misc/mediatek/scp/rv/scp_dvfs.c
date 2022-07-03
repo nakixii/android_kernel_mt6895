@@ -2466,14 +2466,8 @@ static int __init mt_scp_dts_regmap_init(struct platform_device *pdev,
 		goto REGMAP_FIND_FAILED;
 	}
 
-	regmap = chip->regmap;
-	if (IS_ERR_VALUE(regmap)) {
-		dvfs.pmic_regmap = NULL;
-		dev_notice(&pdev->dev, "get pmic regmap fail\n");
-		goto REGMAP_FIND_FAILED;
-	}
-
-	dvfs.pmic_regmap = regmap;
+	dvfs.pmic_regmap = NULL;
+	dev_notice(&pdev->dev, "get pmic regmap fail\n");
 
 BYPASS_PMIC:
 	return 0;

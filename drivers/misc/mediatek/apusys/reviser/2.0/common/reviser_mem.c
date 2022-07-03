@@ -12,6 +12,7 @@
 #include <asm/mman.h>
 #include <linux/iommu.h>
 #include <linux/module.h>
+#include <linux/kmemleak.h>
 
 #include "reviser_cmn.h"
 #include "reviser_mem.h"

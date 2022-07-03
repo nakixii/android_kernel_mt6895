@@ -1218,17 +1218,6 @@ const struct header_ops ccmni_eth_header_ops ____cacheline_aligned = {
 };
 #endif
 
-/* vendor hook callback function
- * used to disable auto generate ipv6 link-local address for ccmni device
- */
-static void mtk_dis_ipv6_lla(void *ignore, struct net_device *dev, bool *ret)
-{
-	if (!strncmp(dev->name, "ccmni", 5))
-		*ret = true;
-	else
-		*ret = false;
-}
-
 static int ccmni_init(int md_id, struct ccmni_ccci_ops *ccci_info)
 {
 	int i = 0, j = 0, ret = 0;
@@ -1273,12 +1262,6 @@ static int ccmni_init(int md_id, struct ccmni_ccci_ops *ccci_info)
 	ccmni_ctl_blk[md_id] = ctlb;
 
 	memcpy(ctlb->ccci_ops, ccci_info, sizeof(struct ccmni_ccci_ops));
-
-	ret = register_trace_android_vh_ipv6_gen_linklocal_addr(mtk_dis_ipv6_lla, NULL);
-	if (ret) {
-		pr_debug("register mtk_dis_ipv6_lla failed, ret: %d\n", ret);
-		goto alloc_mem_fail;
-	}
 
 	for (i = 0; i < ctlb->ccci_ops->ccmni_num; i++) {
 		/* allocate netdev */

@@ -10,7 +10,7 @@
 #define VOW_ASSERT_H
 
 #ifdef CONFIG_MTK_AEE_FEATURE
-#include <mt-plat/aee.h>
+#include "aee.h"
 #endif
 #include "vow.h"
 
