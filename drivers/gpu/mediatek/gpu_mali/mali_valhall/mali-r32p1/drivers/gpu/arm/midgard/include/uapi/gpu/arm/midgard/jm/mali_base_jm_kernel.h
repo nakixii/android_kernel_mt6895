@@ -24,6 +24,10 @@
 
 #include <linux/types.h>
 
+#if defined(CONFIG_GPU_MT6833)
+#define CONFIG_MALI_MTK_GPU_BM_JM
+#endif
+
 /* Memory allocation, access/hint flags.
  *
  * See base_mem_alloc_flags.
@@ -828,7 +832,7 @@ struct base_jd_atom_v2 {
 	base_jd_core_req core_req;
 	__u8 renderpass_id;
 	__u8 padding[7];
-#if defined(CONFIG_MALI_MTK_GPU_BM_2)
+#if defined(CONFIG_MALI_MTK_GPU_BM_JM)
 	u32 frame_nr;  /* frame number to the atom */
 #endif
 };
@@ -879,7 +883,7 @@ typedef struct base_jd_atom {
 	base_jd_core_req core_req;
 	__u8 renderpass_id;
 	__u8 padding[7];
-#if defined(CONFIG_MALI_MTK_GPU_BM_2)
+#if defined(CONFIG_MALI_MTK_GPU_BM_JM)
 	u32 frame_nr;  /* frame number to the atom */
 #endif
 } base_jd_atom;
@@ -1202,5 +1206,9 @@ struct base_dump_cpu_gpu_counters {
 	__u32 usec;
 	__u8 padding[36];
 };
+
+#if defined(CONFIG_GPU_MT6833)
+#undef CONFIG_MALI_MTK_GPU_BM_JM
+#endif
 
 #endif /* _UAPI_BASE_JM_KERNEL_H_ */

@@ -36,6 +36,7 @@ ifneq ($(CONFIG_MTK_GPU_SUPPORT),)
     obj-y += hal/
     obj-y += gpufreq/
     obj-y += gpu_bm/
+    obj-y += gpu_mali/
     obj-y += gpueb/
 
 ifneq ($(CONFIG_MTK_GPU_VERSION),"")

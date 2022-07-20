@@ -18,6 +18,13 @@
 #
 #
 
+KO_CODE_PATH := $(if $(filter /%,$(src)),,$(srctree)/)$(src)
+
+ccflags-y = -I$(KO_CODE_PATH)/../../../gpu/arm/midgard/include
+subdir-ccflags-y += $(ccflags-y)
+
 ifeq ($(CONFIG_MALI_MEMORY_GROUP_MANAGER), y)
-obj-m := memory_group_manager.o
+#obj-m := memory_group_manager.o
+obj-m += mali_mgm.o
+mali_mgm-y := memory_group_manager.o
 endif

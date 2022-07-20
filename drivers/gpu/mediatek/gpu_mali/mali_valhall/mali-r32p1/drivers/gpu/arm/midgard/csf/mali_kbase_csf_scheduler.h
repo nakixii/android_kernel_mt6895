@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: GPL-2.0 */
+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
 /*
  *
  * (C) COPYRIGHT 2019-2021 ARM Limited. All rights reserved.
@@ -490,5 +490,14 @@ static inline bool kbase_csf_scheduler_queue_has_trace(struct kbase_queue *queue
 	 */
 	return (queue->trace_buffer_size && queue->trace_buffer_base);
 }
+
+/**
+ * kbase_csf_scheduler_process_gpu_idle_event() - Process GPU idle IRQ
+ *
+ * @kbdev: Pointer to the device
+ *
+ * This function is called when a GPU idle IRQ has been raised.
+ */
+void kbase_csf_scheduler_process_gpu_idle_event(struct kbase_device *kbdev);
 
 #endif /* _KBASE_CSF_SCHEDULER_H_ */

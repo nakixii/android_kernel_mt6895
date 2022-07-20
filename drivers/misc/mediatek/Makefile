@@ -105,3 +105,4 @@ obj-$(CONFIG_INTERCONNECT_MTK_MMQOS_COMMON) += mmqos/
 obj-$(CONFIG_MTK_BOOT_COMMON) += boot_common/
 #endif
 obj-$(CONFIG_MTK_TIMER_ACCURACY_TEST) += timer/
+obj-y += met_drv_v3/
